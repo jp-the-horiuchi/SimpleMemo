@@ -1,11 +1,21 @@
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import Button from '../../components/Button';
 import { Link, router } from 'expo-router';
 import { useState } from 'react';
+import { auth } from '../../config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
-const handlePress = (): void => {
-    //会員登録
-    router.replace('/memo/list');
+const handlePress = (email: string, password: string): void => {
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            console.log(userCredential.user.uid);
+            router.replace('/memo/list');
+        })
+        .catch((error) => {
+            const { code, message } = error;
+            console.log(code, message);
+            Alert.alert(message);
+        });
 };
 
 const LogIn = (): JSX.Element => {
@@ -15,7 +25,7 @@ const LogIn = (): JSX.Element => {
     return (
         <View style={styles.container}>
             <View style={styles.inner}>
-                <Text style={styles.title}>Log In</Text>
+                <Text style={styles.title}>ログイン</Text>
                 <TextInput
                     style={styles.input}
                     value={email}
@@ -24,7 +34,7 @@ const LogIn = (): JSX.Element => {
                     }}
                     autoCapitalize="none"
                     keyboardType="email-address"
-                    placeholder="Email Address"
+                    placeholder="メールアドレス"
                     textContentType="emailAddress"
                 />
                 <TextInput
@@ -35,15 +45,20 @@ const LogIn = (): JSX.Element => {
                     }}
                     autoCapitalize="none"
                     secureTextEntry
-                    placeholder="Password"
+                    placeholder="パスワード"
                     textContentType="password"
                 />
-                <Button label="Submit" onPress={handlePress} />
+                <Button
+                    label="ログイン"
+                    onPress={() => {
+                        handlePress(email, password);
+                    }}
+                />
                 <View style={styles.footer}>
-                    <Text style={styles.footerText}>Not registered?</Text>
-                    <Link href="/auth/sign_up" asChild>
+                    <Text style={styles.footerText}>アカウント作成は</Text>
+                    <Link href="/auth/sign_up" asChild replace>
                         <TouchableOpacity>
-                            <Text style={styles.footerLink}>Sign up here!</Text>
+                            <Text style={styles.footerLink}>こちら</Text>
                         </TouchableOpacity>
                     </Link>
                 </View>
@@ -82,7 +97,6 @@ const styles = StyleSheet.create({
     footerText: {
         fontSize: 14,
         lineHeight: 24,
-        marginRight: 8,
         color: '#000000'
     },
     footerLink: {
