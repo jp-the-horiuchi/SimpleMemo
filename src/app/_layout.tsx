@@ -8,7 +8,7 @@ const Layout = (): JSX.Element => {
                     backgroundColor: '#467FD3'
                 },
                 headerTintColor: '#FFFFFF',
-                headerTitle: 'Memo App',
+                headerTitle: 'メモアプリ',
                 headerBackTitle: 'Back',
                 headerTitleStyle: {
                     fontSize: 22,
