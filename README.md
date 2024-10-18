@@ -2,6 +2,12 @@
 
 アカウント作成、ログイン後にメモの新規作成、編集、削除が可能
 
+## 使用した技術
+- ReactNative
+- TypeScript
+- Expo
+- Firebase
+
 <img width="619" alt="アカウント登録画面" src="https://github.com/user-attachments/assets/9ccb643b-49c6-4f03-af5e-efa87e814690">
 <img width="610" alt="ログイン画面 2024-10-15 午後3 16 45" src="https://github.com/user-attachments/assets/1c71faef-39fc-4fda-a9ab-9f6e13066ad7">
 <img width="624" alt="メモ一覧画面" src="https://github.com/user-attachments/assets/ce5bae47-98d0-4edc-9596-f703c3474545">
